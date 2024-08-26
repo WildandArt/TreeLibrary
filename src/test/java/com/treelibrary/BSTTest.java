@@ -28,8 +28,14 @@ public class BSTTest {
     public void testInsert() {
         Node <Integer> node7 = bst.insert(7);
         assertEquals(node7.getData(), 7);
+        assertEquals(bst.count(), 1);
+
         Node <Integer> node8 = bst.insert(8);
+        assertEquals(bst.count(), 2);
+
         Node <Integer> node9 = bst.insert(9);
+        assertEquals(bst.count(), 3);
+
         Node <Integer> node2 = bst.insert(2);
         System.out.print(bst.toString());
         assertEquals(node7.getRight(), node8);
@@ -38,7 +44,7 @@ public class BSTTest {
         assertEquals(node8.getRight(), node9);
 
 
-        //assertEquals(bst.count(), 4);
+        assertEquals(bst.count(), 4);
 
 
     }

@@ -29,20 +29,18 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
     @Override
     public int count() {
         int count  = 0;
-
-        nodeCounter(count, this.getRoot());
+        Node <T> iter = this.getRoot();
+        count = nodeCounter( iter);
 
         return count;
     }
-    private void nodeCounter(int count, Node<T> node) {
+    private int nodeCounter(Node<T> node) {
 
         if (null == node) {
-            return;
+            return 0;
         }
 
-        count += 1;
-        nodeCounter(count, node.getLeft());
-        nodeCounter(count, node.getRight());
+        return 1 + nodeCounter( node.getLeft()) + nodeCounter(node.getRight());
 
     }
 
