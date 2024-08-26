@@ -26,8 +26,21 @@ public class BSTTest {
 
     @Test
     public void testInsert() {
-        Node <Integer> node1 = bst.insert(7);
-        assertEquals(node1.getData(), 7);
+        Node <Integer> node7 = bst.insert(7);
+        assertEquals(node7.getData(), 7);
+        Node <Integer> node8 = bst.insert(8);
+        Node <Integer> node9 = bst.insert(9);
+        Node <Integer> node2 = bst.insert(2);
+        System.out.print(bst.toString());
+        assertEquals(node7.getRight(), node8);
+        assertEquals(node7.getLeft(), node2);
+        assertEquals(node8.getLeft(), null);
+        assertEquals(node8.getRight(), node9);
+
+
+        //assertEquals(bst.count(), 4);
+
+
     }
 
     @Test

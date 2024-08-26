@@ -7,7 +7,7 @@ import com.treelibrary.Node;
 import com.treelibrary.Impl.NodeImpl;
 
 
-public class BSTImpl<T> implements BST<T>{
+public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     private Node<T> rootNode;
 
@@ -49,55 +49,124 @@ public class BSTImpl<T> implements BST<T>{
     @Override
     public Node<T> insert(T data) {
 
-        Node<T> node = new NodeImpl<T>(data);
+        Node<T> newNode = new NodeImpl<T>(data);
 
         if ( rootNode == null) {
-            rootNode = node;
+
+            rootNode = newNode;
+            return rootNode;
+
         }
 
         Node <T> iterator = rootNode;
 
         while ( null != iterator) {
-            
 
+
+            if (data.compareTo(iterator.getData()) < 0) {
+
+                if (null == iterator.getLeft()) {
+
+                    iterator.setLeft(newNode);
+                    return newNode;
+
+                }
+
+                iterator = iterator.getLeft();
+                
+            }
+            if (data.compareTo(iterator.getData()) > 0) {
+
+                if (null == iterator.getRight()) {
+
+                    iterator.setRight(newNode);
+                    return newNode;
+
+                }
+
+                iterator = iterator.getRight();
+                
+            }
         }
 
+        return newNode;
+    }
+
+    @Override
+    public Node<T> find(T data) {
         
-        return node;
+        Node <T> iterator = rootNode;
+
+        while (null != iterator) {
+
+            if (data.compareTo(iterator.getData()) == 0) {
+
+                return iterator;
+                
+            }
+
+            if (data.compareTo(iterator.getData()) < 0) {
+
+                iterator = iterator.getLeft();
+                
+            }
+            if (data.compareTo(iterator.getData()) > 0) {
+
+                iterator = iterator.getRight();
+                
+            }
+        }
+        return null;
+    }
+    @Override
+    public String toString() {
+
+        //StringBuilder objectString = new StringBuilder("|");
+        Node <T> iterator = this.getRoot();
+        recursiveToString(iterator);
+         return "Recursive";
+
     }
 
-    @Override
-    public Node find(Object data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+    private void recursiveToString(Node<T> node) {
+
+        if (null == node) {
+            return;
+        }
+
+        System.out.println(node.getData());
+        recursiveToString(node.getLeft());
+        recursiveToString(node.getRight());
+
     }
+    
 
     @Override
-    public Object remove(Node node) {
+    public T remove(Node<T> node) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }
 
     @Override
-    public Node findMin() {
+    public Node <T> findMin() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findMin'");
     }
 
     @Override
-    public Node findMax() {
+    public Node <T> findMax() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findMax'");
     }
 
     @Override
-    public Node next(Node node) {
+    public Node <T> next(Node <T> node) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'next'");
     }
 
     @Override
-    public Node prev(Node node) {
+    public Node <T> prev(Node <T> node) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'prev'");
     }
