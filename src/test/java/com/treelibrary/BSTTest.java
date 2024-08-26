@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-
+import com.treelibrary.Impl.BSTImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,14 +12,16 @@ public class BSTTest {
 
     private BST<Integer> bst;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        // Initialize your BST implementation here, e.g., bst = new BinarySearchTree<>();
+        bst = new BSTImpl<>();
     }
 
     @Test
     public void testIsEmpty() {
-        // Test to check if BST is empty
+        assertEquals(null, bst.getRoot());
+        assertEquals(0, bst.count());
+
     }
 
     @Test
