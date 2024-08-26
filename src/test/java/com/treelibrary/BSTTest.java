@@ -43,9 +43,7 @@ public class BSTTest {
         assertEquals(node8.getLeft(), null);
         assertEquals(node8.getRight(), node9);
 
-
         assertEquals(bst.count(), 4);
-
 
     }
 
@@ -61,7 +59,7 @@ public class BSTTest {
 
     @Test
     public void testRemove() {
-        // Test to remove elements from the BST and validate the structure
+        bst.remove(bst.getRoot());
     }
 
     @Test

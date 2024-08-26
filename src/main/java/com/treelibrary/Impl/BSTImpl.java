@@ -22,7 +22,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         return (null == getRoot());
     }
 
-    private Node<T> getRoot() {
+    public Node<T> getRoot() {
         return rootNode;
     }
 
@@ -119,22 +119,22 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
     @Override
     public String toString() {
 
-        //StringBuilder objectString = new StringBuilder("|");
+        StringBuilder objectString = new StringBuilder("|");
         Node <T> iterator = this.getRoot();
-        recursiveToString(iterator);
-         return "Recursive";
+        recursiveToString(iterator, objectString);
+         return objectString.toString();
 
     }
 
-    private void recursiveToString(Node<T> node) {
+    private void recursiveToString(Node<T> node, StringBuilder objectString) {
 
         if (null == node) {
             return;
         }
 
-        System.out.println(node.getData());
-        recursiveToString(node.getLeft());
-        recursiveToString(node.getRight());
+        objectString.append(node.getData().toString());
+        recursiveToString(node.getLeft(), objectString);
+        recursiveToString(node.getRight(), objectString);
 
     }
     
