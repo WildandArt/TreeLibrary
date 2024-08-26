@@ -4,6 +4,8 @@ import java.util.function.Consumer;
 
 import com.treelibrary.BST;
 import com.treelibrary.Node;
+import com.treelibrary.Impl.NodeImpl;
+
 
 public class BSTImpl<T> implements BST<T>{
 
@@ -17,20 +19,51 @@ public class BSTImpl<T> implements BST<T>{
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+        return (null == getRoot());
+    }
+
+    private Node<T> getRoot() {
+        return rootNode;
     }
 
     @Override
     public int count() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
+        int count  = 0;
+
+        nodeCounter(count, this.getRoot());
+
+        return count;
+    }
+    private void nodeCounter(int count, Node<T> node) {
+
+        if (null == node) {
+            return;
+        }
+
+        count += 1;
+        nodeCounter(count, node.getLeft());
+        nodeCounter(count, node.getRight());
+
     }
 
     @Override
-    public Node insert(Object data) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+    public Node<T> insert(T data) {
+
+        Node<T> node = new NodeImpl<T>(data);
+
+        if ( rootNode == null) {
+            rootNode = node;
+        }
+
+        Node <T> iterator = rootNode;
+
+        while ( null != iterator) {
+            
+
+        }
+
+        
+        return node;
     }
 
     @Override

@@ -19,19 +19,20 @@ public class BSTTest {
 
     @Test
     public void testIsEmpty() {
-        assertEquals(null, bst.getRoot());
+        assertEquals(true, bst.isEmpty());
         assertEquals(0, bst.count());
 
     }
 
     @Test
     public void testInsert() {
-        // Test to insert elements and validate structure
+        Node <Integer> node1 = bst.insert(7);
+        assertEquals(node1.getData(), 7);
     }
 
     @Test
     public void testCount() {
-        // Test to count the number of elements in the BST
+        assertEquals(true, bst.isEmpty());
     }
 
     @Test
