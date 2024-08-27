@@ -9,4 +9,13 @@ public interface Node<T> {
 
     Node<T> getRight();
     void setRight(Node<T> right);
+
+    Node<T> getParent();
+    void setParent(Node<T> node);
+
+    boolean isLeaf();
+    boolean isLeftChild();
+    boolean isRightChild();
+    boolean hasRightChild();
+    boolean hasLeftChild();
 }

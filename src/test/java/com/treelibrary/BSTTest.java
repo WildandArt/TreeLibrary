@@ -58,8 +58,42 @@ public class BSTTest {
     }
 
     @Test
-    public void testRemove() {
-        bst.remove(bst.getRoot());
+    public void testRemoveEmpty() {
+       
+        assertEquals(null,  bst.remove(bst.getRoot()));
+    }
+    @Test
+    public void testRemoveLeaf() {
+       Node<Integer> node8 = bst.insert(8);
+       assertEquals(bst.count(), 1);
+       assertEquals(8, bst.remove(node8));
+       assertEquals(bst.count(), 0);
+       Node<Integer> node17 = bst.insert(17);
+       Node<Integer> node4 = bst.insert(4);
+       Node<Integer> node3 = bst.insert(3);
+
+       assertEquals(3, bst.remove(node3));
+       assertEquals(4, bst.remove(node4));
+
+       assertEquals(bst.count(), 1);
+
+
+
+
+
+
+
+
+
+
+    }
+    @Test
+    public void testRemoveOneChild() {
+       
+    }
+    @Test
+    public void testRemove2Children() {
+       
     }
 
     @Test
