@@ -105,7 +105,17 @@ public class BSTTest {
 
     @Test
     public void testNext() {
-        // Test to find the in-order successor of a given node
+
+        Node<Integer> node20 = bst.insert(20);
+        Node<Integer> node22 = bst.insert(22);
+        Node<Integer> node8 = bst.insert(8);
+        Node<Integer> node12 = bst.insert(12);
+        Node<Integer> node10 = bst.insert(10);
+        Node<Integer> node14 = bst.insert(14);
+        Node<Integer> node4 = bst.insert(4);
+
+       assertEquals(bst.next(node12), node14);
+
     }
 
     @Test

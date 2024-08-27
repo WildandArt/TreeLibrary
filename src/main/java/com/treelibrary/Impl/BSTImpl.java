@@ -187,25 +187,41 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 
     @Override
-    public Node <T> findMin() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findMin'");
+    public Node <T> findMin(Node <T> root) {
+
+        Node<T> iterator = root;
+
+        while (iterator != null) {
+
+            iterator = iterator.getLeft();
+
+        }
+
+        return iterator;
     }
 
     @Override
-    public Node <T> findMax() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findMax'");
+    public Node <T> findMax(Node <T> root) {
+       
+        Node<T> iterator = root;
+
+        while (iterator != null) {
+
+            iterator = iterator.getRight();
+
+        }
+
+        return iterator;
+
     }
 
     @Override
-    public Node <T> next(Node <T> node) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'next'");
+    public Node <T> next(Node <T> node) {//inorder successor
+       return null;
     }
 
     @Override
-    public Node <T> prev(Node <T> node) {
+    public Node <T> prev(Node <T> node) {//predecessor
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'prev'");
     }

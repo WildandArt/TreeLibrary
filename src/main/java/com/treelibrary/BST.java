@@ -10,8 +10,8 @@ public interface BST<T> {
     Node<T> insert(T data);
     Node<T> find(T data);
     T remove(Node<T> node);
-    Node<T> findMin();
-    Node<T> findMax();
+    Node<T> findMin(Node <T> root);
+    Node<T> findMax(Node <T> root);
     Node<T> next(Node<T> node);
     Node<T> prev(Node<T> node);
 
