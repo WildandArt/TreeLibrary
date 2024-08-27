@@ -169,6 +169,16 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
             return data;
         }
+        if (node.hasOneChild() && node.hasRightChild()) {
+            node.getParent().setRight(node.getRight());
+            node.getRight().setParent(node.getParent());
+            return data;
+        }
+        if (node.hasOneChild() && node.hasLeftChild()) {
+            node.getParent().setLeft(node.getLeft());
+            node.getLeft().setParent(node.getParent());
+            return data;
+        }
 
        return null;
     }

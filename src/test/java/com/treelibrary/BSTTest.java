@@ -76,20 +76,17 @@ public class BSTTest {
        assertEquals(4, bst.remove(node4));
 
        assertEquals(bst.count(), 1);
-
-
-
-
-
-
-
-
-
-
     }
+
+
     @Test
     public void testRemoveOneChild() {
-       
+       Node<Integer> node17 = bst.insert(17);
+       Node<Integer> node4 = bst.insert(4);
+       Node<Integer> node3 = bst.insert(3);
+       assertEquals(4, bst.remove(node4));
+
+
     }
     @Test
     public void testRemove2Children() {

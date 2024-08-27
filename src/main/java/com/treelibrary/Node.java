@@ -18,4 +18,6 @@ public interface Node<T> {
     boolean isRightChild();
     boolean hasRightChild();
     boolean hasLeftChild();
+    public boolean hasOneChild();
+
 }

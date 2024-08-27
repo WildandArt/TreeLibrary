@@ -60,6 +60,12 @@ public class NodeImpl<T> implements Node<T> {
 
     }
 
+    public boolean hasOneChild() {
+
+        return (this.hasRightChild() && !this.hasLeftChild()) || this.hasLeftChild() && !this.hasRightChild();
+    
+    }
+
     @Override
     public Node<T> getParent() {
         return parent;
