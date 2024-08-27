@@ -141,8 +141,12 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     @Override
     public T remove(Node<T> node) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+
+       if (null == rootNode) {
+            return null;
+       }
+
+       return node.getData();
     }
 
     @Override
