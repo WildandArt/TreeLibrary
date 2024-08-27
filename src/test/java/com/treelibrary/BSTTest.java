@@ -114,7 +114,13 @@ public class BSTTest {
         Node<Integer> node14 = bst.insert(14);
         Node<Integer> node4 = bst.insert(4);
 
+        System.out.println(bst.toString());
+
        assertEquals(bst.next(node12), node14);
+       assertEquals(bst.next(node22), null);
+       assertEquals(bst.next(node8), node10);
+       assertEquals(bst.next(node20), node22);
+
 
     }
 
