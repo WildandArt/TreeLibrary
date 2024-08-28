@@ -4,7 +4,6 @@ import java.util.function.Consumer;
 
 import com.treelibrary.BST;
 import com.treelibrary.Node;
-import com.treelibrary.Impl.NodeImpl;
 
 
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
@@ -247,7 +246,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
             if(iterator.getParent().getLeft() == iterator) {//if current node is a left child
 
                 successor = iterator.getParent();
-                
+
             }
 
             iterator = iterator.getParent();
