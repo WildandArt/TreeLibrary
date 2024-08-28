@@ -117,11 +117,14 @@ public class BSTTest {
         System.out.println(bst.toString());
 
        assertEquals(bst.next(node12), node14);
+       //highest value in a tree
        assertEquals(bst.next(node22), null);
+
        assertEquals(bst.next(node8), node10);
        assertEquals(bst.next(node20), node22);
 
-
+       //no right tree, going up with the parent
+       assertEquals(bst.next(node14), node20);
     }
 
     @Test

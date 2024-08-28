@@ -188,7 +188,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     @Override
     public Node <T> findMin(Node <T> root) {
-        
+
         if (root == null) {
             return null;
         }
@@ -206,10 +206,14 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     @Override
     public Node <T> findMax(Node <T> root) {
-       
+
+        if (root == null) {
+            return null;
+        }
+
         Node<T> iterator = root;
 
-        while (iterator != null) {
+        while (iterator.getRight() != null) {
 
             iterator = iterator.getRight();
 
@@ -225,15 +229,32 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         Node <T> successor = null;
 
        if(node.hasRightChild()) {
+
             successor = findMin(node.getRight());
+
        }
        else if (findMax(rootNode) == node ) {
+
             successor = null;
+
        }
        else {
 
-       }
+        Node<T> iterator = node;
 
+        while (iterator.getParent() != null) {
+
+            if(iterator.getParent().getLeft() == iterator) {//if current node is a left child
+
+                successor = iterator.getParent();
+                
+            }
+
+            iterator = iterator.getParent();
+            
+        }
+
+       }
 
        return successor;
     }
