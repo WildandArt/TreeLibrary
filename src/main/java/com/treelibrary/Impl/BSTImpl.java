@@ -29,7 +29,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
     public int count() {
         int count  = 0;
         Node <T> iter = this.getRoot();
-        count = nodeCounter( iter);
+        count = nodeCounter(iter);
 
         return count;
     }
@@ -148,7 +148,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         }
 
         T data = node.getData();
-        
+        //3 cases to consider: node to delete is a leaf
         if (node.isLeaf()) {
 
             if (node.isLeftChild()) {
@@ -163,11 +163,11 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
             }
             else {//root
                 rootNode = null;
-
             }
 
             return data;
         }
+        // node to delete has one child
         if (node.hasOneChild() && node.hasRightChild()) {
             node.getParent().setRight(node.getRight());
             node.getRight().setParent(node.getParent());
@@ -178,6 +178,8 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
             node.getLeft().setParent(node.getParent());
             return data;
         }
+        //node to delete has 2 children
+        
 
        return null;
     }
