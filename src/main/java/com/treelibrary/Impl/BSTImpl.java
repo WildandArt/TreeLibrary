@@ -179,7 +179,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
             return data;
         }
         //node to delete has 2 children
-        
+
 
        return null;
     }
@@ -286,8 +286,23 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     @Override
     public int height() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'height'");
+        if(isEmpty()) {
+            return -1;
+        }
+        return maxDepth(rootNode);
+    }
+
+    private int maxDepth(Node<T> node) {
+
+        if (node == null){
+            return -1;
+        }
+
+        int rightDepth = maxDepth(node.getRight());
+        int leftDepth = maxDepth(node.getLeft());
+
+        return Math.max(rightDepth, leftDepth) + 1;
+
     }
 
     @Override

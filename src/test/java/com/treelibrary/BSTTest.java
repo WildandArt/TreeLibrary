@@ -148,8 +148,14 @@ public class BSTTest {
     }
 
     @Test
+    @DisplayName("Height test")
     public void testHeight() {
-        // Test to calculate the height of the BST
+        assertEquals(bst.height(), -1);
+        Node<Integer> node20 = bst.insert(20);
+        Node<Integer> node22 = bst.insert(22);
+        Node<Integer> node8 = bst.insert(8);
+        Node<Integer> node12 = bst.insert(12);
+        assertEquals(bst.height(), 2);
     }
 
     @Test
