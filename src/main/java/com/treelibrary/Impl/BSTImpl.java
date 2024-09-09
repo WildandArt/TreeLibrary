@@ -292,8 +292,23 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     @Override
     public Node <T> prev(Node <T> node) {//predecessor
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'prev'");
+        if (node == null) {
+            return null;
+        }
+
+        if (node.hasLeftChild()){
+            return findMax(node.getLeft());
+        }
+        Node<T> iterator = node;
+        Node<T> iteratorParent = node.getParent();
+
+        while (iteratorParent != null && iterator == iteratorParent.getLeft()) {
+
+            iterator =  iteratorParent;
+            iteratorParent = iterator.getParent();
+            
+        }
+       return iteratorParent;
     }
 
     @Override
