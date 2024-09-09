@@ -196,13 +196,26 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         //node to delete has 2 children
         if (node.hasLeftChild() && node.hasRightChild()) {
 
-            Node<T> successor = next(node);
+            Node<T> successor = findMin(node.getRight());
 
+            // Set the data of the node to be removed with the successor's data
             node.setData(successor.getData());
 
-            remove(successor);
+            // Special case: If the in-order successor is the direct child of the node
+            if (successor.getParent() == node) {
+                node.setRight(successor.getRight());
+                if (successor.getRight() != null) {
+                    successor.getRight().setParent(node);
+                }
+            } else {
+                // Remove the in-order successor
+                if (successor.getRight() != null) {
+                    successor.getRight().setParent(successor.getParent());
+                }
+                successor.getParent().setLeft(successor.getRight());
+            }
+            return data;
         }
-
 
        return data;
     }

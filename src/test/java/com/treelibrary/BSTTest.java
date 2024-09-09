@@ -90,8 +90,60 @@ public class BSTTest {
     }
     @Test
     public void testRemove2Children() {
-       
-    }
+       // Inserting nodes
+       Node<Integer> node17 = bst.insert(17);
+       Node<Integer> node4 = bst.insert(4);
+       Node<Integer> node20 = bst.insert(20);
+       Node<Integer> node3 = bst.insert(3);
+       Node<Integer> node9 = bst.insert(9);
+       Node<Integer> node7 = bst.insert(7);
+       Node<Integer> node8 = bst.insert(8);
+
+       assertEquals(4, node17.getLeft().getData());
+       assertEquals(20, node17.getRight().getData());
+       assertEquals(3, node4.getLeft().getData());
+       assertEquals(9, node4.getRight().getData());
+       assertEquals(7, node9.getLeft().getData());
+       assertEquals(8, node7.getRight().getData());
+
+
+       // Before removal, the structure is:
+       //        17
+       //       /  \
+       //      4    20
+       //     / \
+       //    3   9
+       //       /
+       //      7
+       //       \
+       //        8
+
+       // Test that node 4 is removed correctly (it has two children)
+       assertEquals(4, bst.remove(node4));
+
+       // The tree should now be:
+       //        17
+       //       /  \
+       //      7    20
+       //     / \
+       //    3   9
+       //       /
+       //      8
+
+       // Verify the structure
+       assertEquals(7, node17.getLeft().getData()); // 17's left child should now be 7
+       assertEquals(9, node17.getLeft().getRight().getData()); // 7's right child should be 9
+       assertEquals(8, node9.getLeft().getData()); // 9's left child should still be 8
+       System.out.println(" BST node removal" + bst.toString()) ;
+       assertEquals(7, node7.getData());
+       System.out.println("node7: " + (node7.getLeft()).getData());
+       assertEquals(3, node7.getLeft().getData()); // 7's left child should be 3
+
+       // Verify that node 7 and 9 are correctly connected to their parents
+       assertEquals(node17, node7.getParent()); // 7 should have 17 as parent
+       assertEquals(node7, node9.getParent());  // 9 should have 7 as parent
+       assertEquals(node9, node8.getParent());  // 8 should have 9 as parent
+   }
 
     @Test
     public void testFindMin() {
