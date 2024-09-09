@@ -169,19 +169,42 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         }
         // node to delete has one child
         if (node.hasOneChild() && node.hasRightChild()) {
-            node.getParent().setRight(node.getRight());
+
+            if (node.isLeftChild()) {
+                node.getParent().setLeft(node.getRight());
+            } else if (node.isRightChild()) {
+                node.getParent().setRight(node.getRight());
+            } else { // Node is the root
+                rootNode = node.getRight();
+            }
+
             node.getRight().setParent(node.getParent());
+
             return data;
         }
         if (node.hasOneChild() && node.hasLeftChild()) {
-            node.getParent().setLeft(node.getLeft());
+            if (node.isLeftChild()) {
+                node.getParent().setLeft(node.getLeft());
+            } else if (node.isRightChild()) {
+                node.getParent().setRight(node.getLeft());
+            } else { // Node is the root
+                rootNode = node.getLeft();
+            }
             node.getLeft().setParent(node.getParent());
             return data;
         }
         //node to delete has 2 children
+        if (node.hasLeftChild() && node.hasRightChild()) {
+
+            Node<T> successor = next(node);
+
+            node.setData(successor.getData());
+
+            remove(successor);
+        }
 
 
-       return null;
+       return data;
     }
 
     
@@ -231,33 +254,27 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
        if(node.hasRightChild()) {
 
-            successor = findMin(node.getRight());
+           return findMin(node.getRight());
 
        }
-       else if (findMax(rootNode) == node ) {
+       //if node is maximum int the tree
+       if (findMax(rootNode) == node ) {
 
-            successor = null;
+            return null;
 
        }
-       else {
-
+       
         Node<T> iterator = node;
+        Node<T> iteratorParent = node.getParent(); 
+       //find node that is a left child of its parent, the parent is a successor
+        while (iteratorParent != null && iterator == iteratorParent.getRight()) {
 
-        while (iterator.getParent() != null) {
-
-            if(iterator.getParent().getLeft() == iterator) {//if current node is a left child
-
-                successor = iterator.getParent();
-
-            }
-
-            iterator = iterator.getParent();
+            iterator =  iteratorParent;
+            iteratorParent = iterator.getParent();
             
         }
 
-       }
-
-       return successor;
+       return iteratorParent;
     }
 
     @Override
@@ -279,7 +296,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         traverseInOrderRecursively(root.getLeft(), action);
         action.accept(root.getData());
         traverseInOrderRecursively(root.getRight(), action);
-
     }
 
     @Override
@@ -331,7 +347,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         int leftDepth = maxDepth(node.getLeft());
 
         return Math.max(rightDepth, leftDepth) + 1;
-
     }
 
     @Override
