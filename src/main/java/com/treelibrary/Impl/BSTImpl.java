@@ -123,6 +123,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         StringBuilder objectString = new StringBuilder("|");
         Node <T> iterator = this.getRoot();
         recursiveToString(iterator, objectString);
+        objectString.append("|");
          return objectString.toString();
 
     }

@@ -24,7 +24,6 @@ public class BSTTest {
     public void testIsEmpty() {
         assertEquals(true, bst.isEmpty());
         assertEquals(0, bst.count());
-
     }
 
     @Test
@@ -40,14 +39,13 @@ public class BSTTest {
         assertEquals(bst.count(), 3);
 
         Node <Integer> node2 = bst.insert(2);
-        System.out.print(bst.toString());
+
         assertEquals(node7.getRight(), node8);
         assertEquals(node7.getLeft(), node2);
         assertEquals(node8.getLeft(), null);
         assertEquals(node8.getRight(), node9);
 
         assertEquals(bst.count(), 4);
-
     }
 
     @Test
@@ -88,9 +86,8 @@ public class BSTTest {
        Node<Integer> node4 = bst.insert(4);
        Node<Integer> node3 = bst.insert(3);
        assertEquals(4, bst.remove(node4));
-
-
     }
+    
     @Test
     public void testRemove2Children() {
        // Inserting nodes
@@ -137,7 +134,6 @@ public class BSTTest {
        assertEquals(7, node17.getLeft().getData()); // 17's left child should now be 7
        assertEquals(9, node17.getLeft().getRight().getData()); // 7's right child should be 9
        assertEquals(8, node9.getLeft().getData()); // 9's left child should still be 8
-       System.out.println(" BST node removal" + bst.toString()) ;
        assertEquals(7, node17.getLeft().getData());
        assertEquals(3, node17.getLeft().getLeft().getData());
        assertEquals(node9, node8.getParent());  // 8 should have 9 as parent
@@ -164,7 +160,6 @@ public class BSTTest {
         Node<Integer> node14 = bst.insert(14);
         Node<Integer> node4 = bst.insert(4);
 
-        System.out.println(bst.toString());
 
        assertEquals(bst.next(node12), node14);
        //highest value in a tree
