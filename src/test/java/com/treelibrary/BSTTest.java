@@ -3,6 +3,9 @@ package com.treelibrary;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import com.treelibrary.Impl.BSTImpl;
 
@@ -137,13 +140,6 @@ public class BSTTest {
        System.out.println(" BST node removal" + bst.toString()) ;
        assertEquals(7, node17.getLeft().getData());
        assertEquals(3, node17.getLeft().getLeft().getData());
-       //assertEquals(7, node7.getData());
-    //    System.out.println("node7: " + (node7.getLeft()).getData());
-       //assertEquals(3, node7.getLeft().getData()); // 7's left child should be 3
-
-       // Verify that node 7 and 9 are correctly connected to their parents
-       //assertEquals(node17, node7.getParent()); // 7 should have 17 as parent
-       //assertEquals(node7, node9.getParent());  // 9 should have 7 as parent
        assertEquals(node9, node8.getParent());  // 8 should have 9 as parent
    }
 
@@ -188,17 +184,71 @@ public class BSTTest {
 
     @Test
     public void testTraverseInOrder() {
-        // Test to traverse the BST in in-order and validate the traversal
+        bst.insert(10);
+        bst.insert(5);
+        bst.insert(20);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(15);
+        bst.insert(25);
+
+        // List to collect the output
+        List<Integer> result = new ArrayList<>();
+        
+        // Traverse in-order and collect results
+        bst.traverseInOrder(result::add);
+
+        // Expected in-order traversal
+        List<Integer> expected = List.of(3, 5, 7, 10, 15, 20, 25);
+
+        // Validate the result
+        assertEquals(expected, result);
     }
 
     @Test
     public void testTraversePreOrder() {
-        // Test to traverse the BST in pre-order and validate the traversal
+        bst.insert(10);
+        bst.insert(5);
+        bst.insert(20);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(15);
+        bst.insert(25);
+
+        // List to collect the output
+        List<Integer> result = new ArrayList<>();
+        
+        // Traverse pre-order and collect results
+        bst.traversePreOrder(result::add);
+
+        // Expected pre-order traversal
+        List<Integer> expected = List.of(10, 5, 3, 7, 20, 15, 25);
+
+        // Validate the result
+        assertEquals(expected, result);
     }
 
     @Test
     public void testTraversePostOrder() {
-        // Test to traverse the BST in post-order and validate the traversal
+        bst.insert(10);
+        bst.insert(5);
+        bst.insert(20);
+        bst.insert(3);
+        bst.insert(7);
+        bst.insert(15);
+        bst.insert(25);
+
+        // List to collect the output
+        List<Integer> result = new ArrayList<>();
+        
+        // Traverse post-order and collect results
+        bst.traversePostOrder(result::add);
+
+        // Expected post-order traversal
+        List<Integer> expected = List.of(3, 7, 5, 15, 25, 20, 10);
+
+        // Validate the result
+        assertEquals(expected, result);
     }
 
     @Test
