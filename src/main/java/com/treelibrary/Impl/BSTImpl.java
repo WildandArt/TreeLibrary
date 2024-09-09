@@ -267,23 +267,52 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
     }
 
     @Override
-    public void traverseInOrder(Consumer action) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'traverseInOrder'");
+    public void traverseInOrder(Consumer<T> action) {
+        traverseInOrderRecursively(rootNode, action);
+    }
+    private void traverseInOrderRecursively(Node<T> root, Consumer<T> action){
+
+        if (root == null) {
+            return;
+        }
+
+        traverseInOrderRecursively(root.getLeft(), action);
+        action.accept(root.getData());
+        traverseInOrderRecursively(root.getRight(), action);
+
     }
 
     @Override
-    public void traversePreOrder(Consumer action) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'traversePreOrder'");
+    public void traversePreOrder(Consumer<T> action) {
+        traversePreOrderRecursively(rootNode, action);
+    }
+    private void traversePreOrderRecursively(Node<T> root, Consumer<T> action){
+
+        if (root == null) {
+            return;
+        }
+        action.accept(root.getData());
+
+        traversePreOrderRecursively(root.getLeft(), action);
+        traversePreOrderRecursively(root.getRight(), action);
     }
 
     @Override
-    public void traversePostOrder(Consumer action) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'traversePostOrder'");
+    public void traversePostOrder(Consumer<T> action) {
+        traversePostOrder(rootNode, action);
     }
+    
+    private void traversePostOrder(Node<T> root, Consumer<T> action){
 
+        if (root == null) {
+            return;
+        }
+
+        traversePostOrder(root.getLeft(), action);
+        traversePostOrder(root.getRight(), action);
+
+        action.accept(root.getData());
+    }
     @Override
     public int height() {
         if(isEmpty()) {
@@ -307,8 +336,20 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+        //because java has garbage collector we could just use rootNode = null;
+        clearTree(rootNode);
     }
 
+    private void clearTree(Node<T> root) {
+        if (root == null) {
+            return;
+        }
+
+        clearTree(root.getLeft());
+        clearTree(root.getRight());
+
+        root.setLeft(null);
+        root.setRight(null);
+        root.setData(null);
+    }
 }
