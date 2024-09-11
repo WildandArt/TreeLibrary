@@ -4,7 +4,8 @@ import java.util.function.Consumer;
 
 public interface BST<T> {
 
-    public Node<T> getRoot();
+    Node<T> getRoot();
+    void setRoot(Node<T> node);
     boolean isEmpty();
     int count();
     Node<T> insert(T data);

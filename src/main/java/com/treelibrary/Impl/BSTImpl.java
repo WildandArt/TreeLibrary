@@ -14,8 +14,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         rootNode = null;
     }
 
-
-
     @Override
     public boolean isEmpty() {
         return (null == getRoot());
@@ -23,6 +21,10 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
     public Node<T> getRoot() {
         return rootNode;
+    }
+
+    public void setRoot(Node<T> node) {
+        rootNode = node;
     }
 
     @Override
@@ -147,6 +149,7 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
         if (null == node) {
             return null;
         }
+        //TODO: if root is removed who is the new root?
 
         T data = node.getData();
         //3 cases to consider: node to delete is a leaf
