@@ -1,16 +1,13 @@
 package com.treelibrary.Impl;
 
-import com.treelibrary.Node;
 import com.treelibrary.RBT;
 import com.treelibrary.RBTNode;
 
 
 public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<T> {
 
-     private RBTNode<T> rootNode;
-
      public RBTImpl() {
-        rootNode = null;
+        super();
      }
 
     @Override
@@ -21,15 +18,15 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
     public void clear() {
 
     }
-    public RBTNode<T> getRoot() {
-        return rootNode;
-    }
+    // public RBTNode<T> getRoot() {
+    //     return rootNode;
+    // }
 
     @Override
     public RBTNode<T> insert(T data) {
 
         
-        RBTNode <T> iterator = rootNode;
+        RBTNode <T> iterator = (RBTNode <T>) getRoot();
         RBTNode <T> parent = null;
         
         while (null != iterator) {
@@ -57,7 +54,7 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
         newNode.setRed(true);
         
         if(parent == null) {
-            rootNode = newNode;     
+            setRoot(newNode);  
         } 
         else if(data.compareTo(parent.getData()) < 0) {
             parent.setLeft(newNode);
@@ -182,6 +179,10 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
         node.setParent(leftChild);
 
         replaceParentsChild(parent, node, leftChild);
+
+        if (parent == null) {
+            setRoot(leftChild);  
+        }
     }
 
     private void replaceParentsChild(RBTNode<T> parent, RBTNode<T> oldChild, RBTNode<T> newChild) {

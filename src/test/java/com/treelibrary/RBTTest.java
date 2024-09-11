@@ -90,6 +90,7 @@ private RBT<Integer> rbt;
     public void testRotateRight() {
         // Create the nodes
         RBTNode<Integer> node12 = new RBTNodeImpl<>(12);
+        rbt.setRoot(node12);
         RBTNode<Integer> node10 = new RBTNodeImpl<>(10);
         RBTNode<Integer> node15 = new RBTNodeImpl<>(15);
         RBTNode<Integer> node5 = new RBTNodeImpl<>(5);
@@ -153,10 +154,10 @@ private RBT<Integer> rbt;
 
     @Test
     public void testRootInsertion() {
-        RBTNode<Integer> node10 = rbt.insert(10);  
-        assertEquals((RBTNode<Integer>) rbt.getRoot(), node10);
-        // assertEquals(((RBTNode<Integer>)rbt.getRoot()).getData(), Integer.valueOf(10));
-        // assertEquals(((RBTNode<Integer>)rbt.getRoot()).isRed(), false); // Root should be black
+        RBTNode<Integer> node10 = rbt.insert(10); 
+        assertEquals(10, node10.getData());
+       assertEquals(rbt.getRoot(), node10);
+       assertEquals(((RBTNode<Integer>)rbt.getRoot()).isRed(), true); // Root should be black
     }
 
     @Test

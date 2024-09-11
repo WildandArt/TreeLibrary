@@ -6,4 +6,5 @@ public interface RBT<T> extends BST<T> {
     RBTNode<T> insert(T data);
     void rotateRight(RBTNode<T> node);
     void rotateLeft(RBTNode<T> node);
+    //RBTNode<T> getRoot();
 }
