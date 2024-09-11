@@ -25,29 +25,50 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
     @Override
     public RBTNode<T> insert(T data) {
 
+        
         RBTNode <T> iterator = rootNode;
         RBTNode <T> parent = null;
-
+        
         while (null != iterator) {
             parent = iterator;
             if (data.compareTo(iterator.getData()) == 0) {
-
+                
                 throw new IllegalArgumentException("BST already contains a node with key " + data);
                 
             }
-
+            
             if (data.compareTo(iterator.getData()) < 0) {
-
+                
                 iterator = (RBTNode <T>) iterator.getLeft();
                 
             }
             if (data.compareTo(iterator.getData()) > 0) {
-
+                
                 iterator = (RBTNode <T>) iterator.getRight();
                 
             }
         }
-        return null;
+        
+        RBTNode <T> newNode = new RBTNodeImpl <T>(data);
+        newNode.setRed(true);
+        
+        if(parent == null) {
+            rootNode = newNode;     
+        } 
+        else if(data.compareTo(parent.getData()) > 0) {
+            parent.setLeft(newNode);
+        }
+        else {
+            parent.setRight(newNode);
+        }
+        newNode.setParent(parent);
+
+        fixImbalanceAfterInsert(newNode);
+
+        return newNode;
+
+    }
+    private void fixImbalanceAfterInsert(RBTNode<T> node) {
 
     }
 
