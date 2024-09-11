@@ -20,11 +20,11 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
         return null;
     }
 
-    public void rotateRight() {
+    public void rotateRight(RBTNode<T> node) {
 
     }
 
-    public void rotateLeft() {
+    public void rotateLeft(RBTNode<T> node) {
 
     }
 
