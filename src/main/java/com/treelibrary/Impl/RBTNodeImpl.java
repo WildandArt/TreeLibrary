@@ -10,6 +10,7 @@ public class RBTNodeImpl<T> extends NodeImpl<T> implements RBTNode<T> {
         super(data);
         this.isRed = true;
     }
+    
     @Override
     public boolean isRed() {
         return isRed;

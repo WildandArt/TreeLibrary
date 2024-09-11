@@ -21,6 +21,9 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
     public void clear() {
 
     }
+    public RBTNode<T> getRoot() {
+        return rootNode;
+    }
 
     @Override
     public RBTNode<T> insert(T data) {
@@ -31,6 +34,7 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
         
         while (null != iterator) {
             parent = iterator;
+
             if (data.compareTo(iterator.getData()) == 0) {
                 
                 throw new IllegalArgumentException("BST already contains a node with key " + data);
@@ -42,7 +46,7 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
                 iterator = (RBTNode <T>) iterator.getLeft();
                 
             }
-            if (data.compareTo(iterator.getData()) > 0) {
+            else if(data.compareTo(iterator.getData()) > 0) {
                 
                 iterator = (RBTNode <T>) iterator.getRight();
                 
@@ -55,7 +59,7 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
         if(parent == null) {
             rootNode = newNode;     
         } 
-        else if(data.compareTo(parent.getData()) > 0) {
+        else if(data.compareTo(parent.getData()) < 0) {
             parent.setLeft(newNode);
         }
         else {

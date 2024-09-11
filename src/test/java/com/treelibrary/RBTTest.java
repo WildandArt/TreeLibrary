@@ -150,6 +150,15 @@ private RBT<Integer> rbt;
         // assertEquals(node10.getData(), 10);
         
     }
+
+    @Test
+    public void testRootInsertion() {
+        RBTNode<Integer> node10 = rbt.insert(10);  
+        assertEquals((RBTNode<Integer>) rbt.getRoot(), node10);
+        // assertEquals(((RBTNode<Integer>)rbt.getRoot()).getData(), Integer.valueOf(10));
+        // assertEquals(((RBTNode<Integer>)rbt.getRoot()).isRed(), false); // Root should be black
+    }
+
     @Test
     public void testRemove() {
         
