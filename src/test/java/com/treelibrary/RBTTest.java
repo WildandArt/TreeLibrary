@@ -202,7 +202,7 @@ public void testRightRotationAndRecoloring() {
     assertEquals(root.isRed(), false); // Root should be black
     assertEquals(root.getLeft().getData(), Integer.valueOf(1)); // 1 should be the left child of 5
     assertEquals(root.getRight().getData(), Integer.valueOf(10)); // 10 should be the right child of 5
-    assertEquals(root.getRight().isRed(), true); // 10 should be red
+    assertEquals(((RBTNode<Integer>) root.getRight()).isRed(), true); // 10 should be red
 }
 // @Test
 // public void testRightLeftRotation() {
