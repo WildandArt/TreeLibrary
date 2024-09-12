@@ -26,7 +26,7 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
     public RBTNode<T> insert(T data) {
 
         
-        RBTNode <T> iterator = (RBTNode <T>) getRoot();
+        RBTNode <T> iterator = (RBTNode <T>) this.getRoot();
         RBTNode <T> parent = null;
         
         while (null != iterator) {
@@ -184,6 +184,24 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
             setRoot(leftChild);  
         }
     }
+    public void rotateLeft(RBTNode<T> node) {
+        RBTNode<T> parent = (RBTNode<T>) node.getParent();
+        RBTNode<T> rightChild = (RBTNode<T>) node.getRight();
+
+        node.setRight(rightChild.getLeft());
+
+        if (rightChild.getLeft() != null) {
+            rightChild.getLeft().setParent(node);
+        }
+
+        rightChild.setLeft(node);
+        node.setParent(rightChild);
+
+        replaceParentsChild(parent, node, rightChild);
+        if (parent == null) {
+            setRoot(rightChild);  
+        }
+    }
 
     private void replaceParentsChild(RBTNode<T> parent, RBTNode<T> oldChild, RBTNode<T> newChild) {
         if (parent == null) {
@@ -201,19 +219,4 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
           }
     }
 
-    public void rotateLeft(RBTNode<T> node) {
-        RBTNode<T> parent = (RBTNode<T>) node.getParent();
-        RBTNode<T> rightChild = (RBTNode<T>) node.getRight();
-
-        node.setRight(rightChild.getLeft());
-
-        if (rightChild.getLeft() != null) {
-            rightChild.getLeft().setParent(node);
-        }
-
-        rightChild.setLeft(node);
-        node.setParent(rightChild);
-
-        replaceParentsChild(parent, node, rightChild);
-    }
 }

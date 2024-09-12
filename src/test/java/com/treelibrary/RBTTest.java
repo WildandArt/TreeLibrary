@@ -161,6 +161,80 @@ private RBT<Integer> rbt;
     }
 
     @Test
+    public void testRecoloringWithRedUncle() {
+        
+        rbt.insert(10);
+        rbt.insert(5);    // Left child of 10
+        rbt.insert(15);   // Right child of 10 (making both children red)
+        rbt.insert(1);    // Recoloring should happen here
+
+        // Verify recoloring
+        RBTNode<Integer> root = (RBTNode<Integer>) rbt.getRoot();
+        assertEquals(root.isRed(), true);         // Root should be red because we ignore rule number 2
+        assertEquals( ((RBTNode<Integer>)(root.getLeft())).isRed(), false); // 5 should be black
+        assertEquals((( RBTNode<Integer>)root.getRight()).isRed(), false); // 15 should be black
+    }
+    @Test
+    public void testLeftRotation() {    
+        rbt.insert(10);
+        rbt.insert(5);    // Left child
+        rbt.insert(7);    // Triggers a left rotation on 5
+        System.out.println("after testLeftRotation" + rbt);
+
+        // Verify the rotation
+        RBTNode<Integer> root = (RBTNode<Integer>) rbt.getRoot();
+        RBTNode<Integer> rootLeft = (RBTNode<Integer>) rbt.getRoot().getLeft();
+        RBTNode<Integer> rootLeftLeft = (RBTNode<Integer>) rbt.getRoot().getLeft().getLeft();
+
+        assertEquals(rootLeft.getData(), Integer.valueOf(7)); // 7 should now be the left child of 10
+        assertEquals(rootLeftLeft.getData(), Integer.valueOf(5)); // 5 should be the left child of 7
+    }
+// @Test
+// public void testRightRotationAndRecoloring() {
+//     RedBlackTree<Integer> rbt = new RedBlackTree<>();
+    
+//     rbt.insert(10);
+//     rbt.insert(5);    // Left child of 10
+//     rbt.insert(1);    // Triggers a right rotation on 10
+
+//     // Verify the right rotation and recoloring
+//     RBTNode<Integer> root = rbt.getRoot();
+//     assertEquals(root.getData(), Integer.valueOf(5)); // 5 should now be the root
+//     assertEquals(root.isRed(), false); // Root should be black
+//     assertEquals(root.getLeft().getData(), Integer.valueOf(1)); // 1 should be the left child of 5
+//     assertEquals(root.getRight().getData(), Integer.valueOf(10)); // 10 should be the right child of 5
+//     assertEquals(root.getRight().isRed(), true); // 10 should be red
+// }
+// @Test
+// public void testRightLeftRotation() {
+//     RedBlackTree<Integer> rbt = new RedBlackTree<>();
+    
+//     rbt.insert(10);
+//     rbt.insert(15);    // Right child of 10
+//     rbt.insert(12);    // Triggers a right-left double rotation
+
+//     // Verify the right-left rotation
+//     RBTNode<Integer> root = rbt.getRoot();
+//     assertEquals(root.getRight().getData(), Integer.valueOf(12)); // 12 should now be the right child of 10
+//     assertEquals(root.getRight().getLeft().getData(), Integer.valueOf(10)); // 10 should be the left child of 12
+// }
+// @Test
+// public void testLeftRotationAndRecoloring() {
+//     RedBlackTree<Integer> rbt = new RedBlackTree<>();
+    
+//     rbt.insert(10);
+//     rbt.insert(15);    // Right child of 10
+//     rbt.insert(20);    // Triggers a left rotation on 10
+
+//     // Verify the left rotation and recoloring
+//     RBTNode<Integer> root = rbt.getRoot();
+//     assertEquals(root.getData(), Integer.valueOf(15)); // 15 should now be the root
+//     assertEquals(root.isRed(), false); // Root should be black
+//     assertEquals(root.getRight().getData(), Integer.valueOf(20)); // 20 should be the right child of 15
+//     assertEquals(root.getLeft().getData(), Integer.valueOf(10)); // 10 should be the left child of 15
+//     assertEquals(root.getLeft().isRed(), true); // 10 should be red
+// }
+    @Test
     public void testRemove() {
         
     }

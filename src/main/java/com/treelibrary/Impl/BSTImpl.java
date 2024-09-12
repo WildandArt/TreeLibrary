@@ -8,7 +8,7 @@ import com.treelibrary.Node;
 
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
-    private Node<T> rootNode;
+    protected Node<T> rootNode;
 
     public BSTImpl() {
         rootNode = null;
