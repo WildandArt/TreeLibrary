@@ -23,6 +23,11 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
     // }
 
     @Override
+    public RBTNode<T> getRoot() {
+        return (RBTNode<T>) super.getRoot();  // Safely cast to RBTNode<T>
+    }
+    
+    @Override
     public RBTNode<T> insert(T data) {
 
         
