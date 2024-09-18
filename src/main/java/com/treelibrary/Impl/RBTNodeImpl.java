@@ -100,15 +100,15 @@ public class RBTNodeImpl<T> extends NodeImpl<T> implements RBTNode<T> {
 
     }
     @Override
-    public RBTNode<T> getSibling(RBTNode<T> node) {
-        RBTNode<T> parent = node.getParent();
+    public RBTNode<T> getSibling() {
+        RBTNode<T> parent = this.getParent();
 
-      if (node == parent.getLeft()) {
+      if (this == parent.getLeft()) {
 
         return parent.getRight();
 
       } 
-      else if (node == parent.getRight()) {
+      else if (this == parent.getRight()) {
 
         return parent.getLeft();
 

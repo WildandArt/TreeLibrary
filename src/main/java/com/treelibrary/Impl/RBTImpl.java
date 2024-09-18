@@ -46,13 +46,48 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
       }
 
       if (deletedNodeColor == false) {
-        //fixRedBlackPropertiesAfterDelete(movedUpNode);
+        fixRedBlackPropertiesAfterDelete(movedUpNode);
         // Remove the temporary NIL node
         if (movedUpNode.getClass() == NilNode.class) {
           replaceParentsChild(movedUpNode.getParent(), movedUpNode, null);
         }
       }
       return null;
+    }
+
+    private void fixRedBlackPropertiesAfterDelete(RBTNode<T> node) {
+      // Case 1: Examined node is root, end of recursion
+      if (node == getRoot()) {
+        return;
+      }
+    
+      RBTNode<T> sibling = node.getSibling();
+    
+      // Case 2: Red sibling
+      if (sibling.isRed()) {
+        handleRedSibling(node, sibling);
+        sibling = node.getSibling(); // Get new sibling for fall-through to cases 3-6
+      }
+    
+      // Cases 3+4: Black sibling with two black children
+      if (sibling.getLeft().isBlack() && sibling.getRight().isBlack()) {
+        sibling.setRed(true);
+    
+        // Case 3: Black sibling with two black children + red parent
+        if (node.getParent().isRed()) {
+          node.getParent().setRed(false);
+        }
+    
+        // Case 4: Black sibling with two black children + black parent
+        else {
+          fixRedBlackPropertiesAfterDelete(node.getParent());
+        }
+      }
+    
+      // Case 5+6: Black sibling with at least one red child
+      else {
+        handleBlackSiblingWithAtLeastOneRedChild(node, sibling);
+      }
     }
 
     private void handleRedSibling(RBTNode<T> node, RBTNode<T> sibling) {
@@ -73,29 +108,30 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
       // Case 5: Black sibling with at least one red child + "outer nephew" is black
       // --> Recolor sibling and its child, and rotate around sibling
       if (nodeIsLeftChild && (sibling.getRight()).isBlack()) {
-        sibling.left.color = BLACK;
-        sibling.color = RED;
+        sibling.getLeft().setRed(false);
+        sibling.setRed(true);
         rotateRight(sibling);
-        sibling = node.parent.right;
-      } else if (!nodeIsLeftChild && isBlack(sibling.left)) {
-        sibling.right.color = BLACK;
-        sibling.color = RED;
+        sibling = node.getParent().getRight();
+      } 
+      else if (!nodeIsLeftChild && sibling.getLeft().isBlack()) {
+        sibling.getRight().setRed(false);
+        sibling.setRed(true);
         rotateLeft(sibling);
-        sibling = node.parent.left;
+        sibling = node.getParent().getLeft();
       }
     
       // Fall-through to case 6...
     
       // Case 6: Black sibling with at least one red child + "outer nephew" is red
       // --> Recolor sibling + parent + sibling's child, and rotate around parent
-      sibling.color = node.parent.color;
-      node.parent.color = BLACK;
+      sibling.setRed(node.getParent().isRed());
+      node.getParent().setRed(false);
       if (nodeIsLeftChild) {
-        sibling.right.color = BLACK;
-        rotateLeft(node.parent);
+        sibling.getRight().setRed(false);
+        rotateLeft(node.getParent());
       } else {
-        sibling.left.color = BLACK;
-        rotateRight(node.parent);
+        sibling.getLeft().setRed(false);
+        rotateRight(node.getParent());
       }
     }
     
