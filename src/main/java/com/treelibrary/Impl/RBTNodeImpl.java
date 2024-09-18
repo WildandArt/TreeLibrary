@@ -1,5 +1,6 @@
 package com.treelibrary.Impl;
 
+import com.treelibrary.Node;
 import com.treelibrary.RBTNode;
 
 public class RBTNodeImpl<T> extends NodeImpl<T> implements RBTNode<T> {
@@ -20,6 +21,11 @@ public class RBTNodeImpl<T> extends NodeImpl<T> implements RBTNode<T> {
     @Override
     public boolean isRed() {
         return isRed;
+    }
+
+    @Override
+    public boolean isBlack() {
+        return this == null || this.isRed() == false;
     }
 
     @Override
@@ -93,4 +99,25 @@ public class RBTNodeImpl<T> extends NodeImpl<T> implements RBTNode<T> {
         return (null != parent) && (parent.getRight() == this);
 
     }
+    @Override
+    public RBTNode<T> getSibling(RBTNode<T> node) {
+        RBTNode<T> parent = node.getParent();
+
+      if (node == parent.getLeft()) {
+
+        return parent.getRight();
+
+      } 
+      else if (node == parent.getRight()) {
+
+        return parent.getLeft();
+
+      } else {
+
+        throw new IllegalStateException("Parent is not a child of its grandparent");
+        
+      }
+    }
+
+
 }

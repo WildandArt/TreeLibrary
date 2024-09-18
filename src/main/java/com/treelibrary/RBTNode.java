@@ -9,4 +9,6 @@ public interface RBTNode<T> extends Node<T> {
     RBTNode<T> getLeft();
     RBTNode<T> getRight();
     RBTNode<T> getParent();
+    RBTNode<T> getSibling(RBTNode<T> node);
+    boolean isBlack();
 }

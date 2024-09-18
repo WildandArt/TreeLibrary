@@ -1,7 +1,7 @@
 package com.treelibrary;
 
 public interface RBT<T> extends BST<T> {
-    T remove(int data);
+    T remove(T data);
     void clear();
     RBTNode<T> insert(T data);
     void rotateRight(RBTNode<T> node);

@@ -16,11 +16,90 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
     //     return null;
     // }
     @Override
-    public T remove(int data) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    public T remove(T data) {
+
+      RBTNode<T> node = find(data);
+
+      if (node == null) {
+        return null;
+      }
+
+      RBTNode<T> movedUpNode;
+      boolean deletedNodeColor;
+
+      if (node.hasOneChild()) {
+
+        movedUpNode = deleteNodeWithZeroOrOneChild(node);
+        deletedNodeColor = node.isRed();
+
+      }
+      else {//has 2 children
+         //find inorder successor of current node)
+         RBTNode<T> inOrderSuccessor = findMin(node.getRight());
+    
+         // Copy inorder successor's data to current node (keep its color!)
+         node.setData(inOrderSuccessor.getData()); 
+     
+         // Delete inorder successor just as we would delete a node with 0 or 1 child
+         movedUpNode = deleteNodeWithZeroOrOneChild(inOrderSuccessor);
+         deletedNodeColor = inOrderSuccessor.isRed();
+      }
+
+      if (deletedNodeColor == false) {
+        //fixRedBlackPropertiesAfterDelete(movedUpNode);
+        // Remove the temporary NIL node
+        if (movedUpNode.getClass() == NilNode.class) {
+          replaceParentsChild(movedUpNode.getParent(), movedUpNode, null);
+        }
+      }
+      return null;
     }
 
+    private void handleRedSibling(RBTNode<T> node, RBTNode<T> sibling) {
+      //Recolor...
+      sibling.setRed(false);
+      node.getParent().setRed(true);
+    
+      // ... and rotate
+      if (node == node.getParent().getLeft()) {
+        rotateLeft(node.getParent());
+      } else {
+        rotateRight(node.getParent());
+      }
+    }
+    private void handleBlackSiblingWithAtLeastOneRedChild(RBTNode<T> node, RBTNode<T> sibling) {
+      boolean nodeIsLeftChild = node.isLeftChild();
+    
+      // Case 5: Black sibling with at least one red child + "outer nephew" is black
+      // --> Recolor sibling and its child, and rotate around sibling
+      if (nodeIsLeftChild && (sibling.getRight()).isBlack()) {
+        sibling.left.color = BLACK;
+        sibling.color = RED;
+        rotateRight(sibling);
+        sibling = node.parent.right;
+      } else if (!nodeIsLeftChild && isBlack(sibling.left)) {
+        sibling.right.color = BLACK;
+        sibling.color = RED;
+        rotateLeft(sibling);
+        sibling = node.parent.left;
+      }
+    
+      // Fall-through to case 6...
+    
+      // Case 6: Black sibling with at least one red child + "outer nephew" is red
+      // --> Recolor sibling + parent + sibling's child, and rotate around parent
+      sibling.color = node.parent.color;
+      node.parent.color = BLACK;
+      if (nodeIsLeftChild) {
+        sibling.right.color = BLACK;
+        rotateLeft(node.parent);
+      } else {
+        sibling.left.color = BLACK;
+        rotateRight(node.parent);
+      }
+    }
+    
+   
     @Override
     public void clear() {
 
@@ -92,7 +171,7 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
             else if(data.compareTo(iterator.getData()) > 0) {
                 
                 iterator = (RBTNode <T>) iterator.getRight();
-                
+
             }
         }
         
@@ -265,28 +344,28 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
           }
     }
     public RBTNode<T> deleteNodeWithZeroOrOneChild(RBTNode<T> node) {
-    // Node has ONLY a left child --> replace by its left child
-    RBTNode<T> parent = (RBTNode<T>) node.getParent();
-    RBTNode<T> leftChild = (RBTNode<T>) node.getLeft();
-    if (node.hasLeftChild() && (node.hasOneChild())) {
-      replaceParentsChild(parent, node, leftChild);
-      return (RBTNode<T>) node.getLeft(); // moved-up node
+      // Node has ONLY a left child --> replace by its left child
+      RBTNode<T> parent = (RBTNode<T>) node.getParent();
+      RBTNode<T> leftChild = (RBTNode<T>) node.getLeft();
+      if (node.hasLeftChild() && (node.hasOneChild())) {
+        replaceParentsChild(parent, node, leftChild);
+        return (RBTNode<T>) node.getLeft(); // moved-up node
     }
 
-    // Node has ONLY a right child --> replace by its right child
-    else if (node.hasRightChild() && node.hasOneChild()) {
-      replaceParentsChild(node.getParent(), node, node.getRight());
-      return node.getRight(); // moved-up node
-    }
+      // Node has ONLY a right child --> replace by its right child
+      else if (node.hasRightChild() && node.hasOneChild()) {
+        replaceParentsChild(node.getParent(), node, node.getRight());
+        return node.getRight(); // moved-up node
+      }
 
-    // Node has no children -->
-    // * node is red --> just remove it
-    // * node is black --> replace it by a temporary NIL node (needed to fix the R-B rules)
-    else {
-      RBTNode<T> newChild = node.isRed() == false ? new NilNode() : null;
-      replaceParentsChild(node.getParent(), node, newChild);
-      return newChild;
-    }
+      // Node has no children -->
+      // * node is red --> just remove it
+      // * node is black --> replace it by a temporary NIL node (needed to fix the R-B rules)
+      else {
+        RBTNode<T> newChild = node.isRed() == false ? new NilNode() : null;
+        replaceParentsChild(node.getParent(), node, newChild);
+        return newChild;
+      }
   }
   private static class NilNode<T> extends RBTNodeImpl<T> {
     private NilNode() {
