@@ -1,5 +1,6 @@
 package com.treelibrary.Impl;
 
+import com.treelibrary.Node;
 import com.treelibrary.RBT;
 import com.treelibrary.RBTNode;
 
@@ -10,23 +11,63 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
         super();
      }
 
+    // @Override
+    // public  T remove(RBTNode<T> node) {
+    //     return null;
+    // }
     @Override
-    public  T remove(RBTNode<T> node) {
-        return null;
+    public T remove(int data) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }
+
     @Override
     public void clear() {
 
     }
-    // public RBTNode<T> getRoot() {
-    //     return rootNode;
-    // }
+    
+    @Override
+    public RBTNode<T> find(T data) {
+        RBTNode<T> iterator = (RBTNode<T>) getRoot(); // Safely cast to RBTNode<T>
+
+        while (iterator != null) {
+            int comparison = data.compareTo(iterator.getData());
+
+            if (comparison == 0) {
+                return iterator;
+            }
+
+            if (comparison < 0) {
+                iterator = (RBTNode<T>) iterator.getLeft();
+            } else {
+                iterator = (RBTNode<T>) iterator.getRight();
+            }
+        }
+        return null;
+    }
+    @Override
+    public RBTNode <T> findMin(RBTNode <T> root) {
+
+        if (root == null) {
+            return null;
+        }
+
+        RBTNode<T> iterator = root;
+
+        while (iterator.getLeft() != null) {
+
+            iterator = iterator.getLeft();
+
+        }
+
+        return iterator;
+    }
 
     @Override
     public RBTNode<T> getRoot() {
         return (RBTNode<T>) super.getRoot();  // Safely cast to RBTNode<T>
     }
-    
+
     @Override
     public RBTNode<T> insert(T data) {
 
@@ -223,5 +264,36 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
             newChild.setParent(parent);
           }
     }
+    public RBTNode<T> deleteNodeWithZeroOrOneChild(RBTNode<T> node) {
+    // Node has ONLY a left child --> replace by its left child
+    RBTNode<T> parent = (RBTNode<T>) node.getParent();
+    RBTNode<T> leftChild = (RBTNode<T>) node.getLeft();
+    if (node.hasLeftChild() && (node.hasOneChild())) {
+      replaceParentsChild(parent, node, leftChild);
+      return (RBTNode<T>) node.getLeft(); // moved-up node
+    }
+
+    // Node has ONLY a right child --> replace by its right child
+    else if (node.hasRightChild() && node.hasOneChild()) {
+      replaceParentsChild(node.getParent(), node, node.getRight());
+      return node.getRight(); // moved-up node
+    }
+
+    // Node has no children -->
+    // * node is red --> just remove it
+    // * node is black --> replace it by a temporary NIL node (needed to fix the R-B rules)
+    else {
+      RBTNode<T> newChild = node.isRed() == false ? new NilNode() : null;
+      replaceParentsChild(node.getParent(), node, newChild);
+      return newChild;
+    }
+  }
+  private static class NilNode<T> extends RBTNodeImpl<T> {
+    private NilNode() {
+      super(null);
+      this.setRed(false);
+    }
+  }
+  
 
 }

@@ -233,6 +233,50 @@ public void testLeftRotationAndRecoloring() {
     assertEquals(((RBTNode<Integer>)(root.getLeft())).isRed(), true); // 10 should be red
     assertEquals(((RBTNode<Integer>)(root.getRight())).isRed(), true);
 }
+
+@Test
+    public void testDeleteNodeWithZeroChildren() {
+        
+        rbt.insert(20);
+        rbt.insert(15);
+        rbt.insert(25);
+        rbt.insert(10);
+        rbt.insert(5);
+        rbt.insert(30);
+
+        RBTNode<Integer> node = rbt.find(5); // Node with zero children
+        RBTNode<Integer> replacement = rbt.deleteNodeWithZeroOrOneChild(node);
+        assertNull(replacement);
+        assertNull(rbt.find(5)); // Ensure node is deleted
+    }
+
+    @Test
+    public void testDeleteNodeWithOneChild() {
+        rbt.insert(20);
+        rbt.insert(15);
+        rbt.insert(25);  // This will ensure 25 has only one child (no left child)
+        rbt.insert(27);  // 27 will be the only right child of 25
+
+            // Remove the node with only one child (25 in this case)
+        RBTNode<Integer> nodeToDelete = rbt.find(25);
+        assertNotNull(nodeToDelete);
+        assertEquals(Integer.valueOf(25), nodeToDelete.getData());
+
+        // Perform the deletion operation
+        RBTNode<Integer> replacement = rbt.deleteNodeWithZeroOrOneChild(nodeToDelete);
+
+        // Verify the replacement and deletion
+        assertNotNull(replacement);
+        assertEquals(Integer.valueOf(27), replacement.getData()); // Node 27 should replace 25
+        assertNull(rbt.find(25)); // Ensure node 25 is deleted
+
+        // Ensure that node 27 takes the place of node 25
+        RBTNode<Integer> newParent = rbt.find(27);
+        assertNotNull(newParent);
+        assertEquals(Integer.valueOf(27), newParent.getData());
+        assertEquals(Integer.valueOf(20), newParent.getParent().getData()); // 27 should now be a child of 20
+
+    }
     @Test
     public void testRemove() {
         
