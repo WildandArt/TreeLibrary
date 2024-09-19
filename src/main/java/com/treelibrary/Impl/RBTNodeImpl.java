@@ -1,6 +1,4 @@
 package com.treelibrary.Impl;
-
-import com.treelibrary.Node;
 import com.treelibrary.RBTNode;
 
 public class RBTNodeImpl<T> extends NodeImpl<T> implements RBTNode<T> {

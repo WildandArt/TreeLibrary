@@ -278,6 +278,49 @@ public void testLeftRotationAndRecoloring() {
 
     }
     @Test
+    public void testRemoveNodeWithTwoChildren() {
+
+        rbt.insert(50);
+        rbt.insert(30);
+        rbt.insert(70);
+        rbt.insert(20);
+        rbt.insert(40);
+        rbt.insert(60);
+        rbt.insert(80);
+//         50B
+//         /   \
+//       30B    70B
+//      /  \    /  \
+//    20R  40R 60R  80R
+
+//after
+//       60B
+//      /   \
+//    30B    70B
+//   /   \      \
+// 20R   40R     80R
+
+
+
+        // In-Order Traversal should give [20, 30, 40, 50, 60, 70, 80]
+        assertEquals("[20, 30, 40, 50, 60, 70, 80]", rbt.inOrderTraversal().toString());
+
+        // Remove the node with two children (50)
+        Integer removedData = rbt.remove(50);
+        
+        // Verify the returned data is correct
+        assertEquals(50, removedData);
+
+        // Check that 50 is removed from the tree
+        assertNull(rbt.find(50));
+
+        // In-Order Traversal should now give [20, 30, 40, 60, 70, 80]
+        assertEquals("[20, 30, 40, 60, 70, 80]", rbt.inOrderTraversal().toString());
+
+    }
+
+
+    @Test
     public void testRemove() {
         
     }

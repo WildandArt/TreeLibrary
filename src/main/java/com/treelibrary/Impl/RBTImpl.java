@@ -1,5 +1,8 @@
 package com.treelibrary.Impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.treelibrary.Node;
 import com.treelibrary.RBT;
 import com.treelibrary.RBTNode;
@@ -23,6 +26,8 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
       if (node == null) {
         return null;
       }
+
+      T removedData = node.getData();
 
       RBTNode<T> movedUpNode;
       boolean deletedNodeColor;
@@ -48,12 +53,31 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
       if (deletedNodeColor == false) {
         fixRedBlackPropertiesAfterDelete(movedUpNode);
         // Remove the temporary NIL node
-        if (movedUpNode.getClass() == NilNode.class) {
+        if (movedUpNode instanceof NilNode) {
           replaceParentsChild(movedUpNode.getParent(), movedUpNode, null);
         }
       }
-      return null;
+      return removedData;
     }
+
+    public List<T> inOrderTraversal() {
+
+    List<T> result = new ArrayList<>();
+    inOrderTraversalHelper(this.getRoot(), result);
+    return result;
+    
+}
+
+private void inOrderTraversalHelper(RBTNode<T> node, List<T> result) {
+
+    if (node == null || node instanceof NilNode) return;
+
+    inOrderTraversalHelper(node.getLeft(), result);
+    result.add(node.getData());
+    inOrderTraversalHelper(node.getRight(), result);
+
+}
+
 
     private void fixRedBlackPropertiesAfterDelete(RBTNode<T> node) {
       // Case 1: Examined node is root, end of recursion

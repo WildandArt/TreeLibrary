@@ -1,5 +1,7 @@
 package com.treelibrary;
 
+import java.util.List;
+
 public interface RBT<T> extends BST<T> {
     T remove(T data);
     void clear();
@@ -10,4 +12,5 @@ public interface RBT<T> extends BST<T> {
     RBTNode<T> find(T data);
     RBTNode<T> deleteNodeWithZeroOrOneChild(RBTNode<T> node);
     RBTNode<T> findMin(RBTNode <T> root);
+    public List<T> inOrderTraversal();
 }
