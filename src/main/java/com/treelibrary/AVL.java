@@ -1,8 +1,7 @@
 package com.treelibrary;
 
-public interface AVL {
-
-    void rotateRight();
-    void rotateLeft();
+public interface AVL<T> {
+    void updateHeight(AVLNode<T> node);
+   
     
 }

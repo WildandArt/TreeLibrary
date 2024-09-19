@@ -1,7 +1,6 @@
 package com.treelibrary.Impl;
 
 import com.treelibrary.AVLNode;
-import com.treelibrary.RBTNode;
 
 public class AVLNodeImpl<T> extends NodeImpl<T> implements AVLNode<T> {
 

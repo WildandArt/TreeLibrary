@@ -7,6 +7,6 @@ public interface AVLNode<T> extends Node<T> {
     AVLNode<T> getLeft();
     AVLNode<T> getRight();
     int getHeight();
-    void setHeight(int height);
+    void setHeight(int height);    
 
 }

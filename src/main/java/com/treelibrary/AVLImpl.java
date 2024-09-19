@@ -22,7 +22,7 @@ public class AVLImpl<T extends Comparable<T>> implements Rotatable<T, AVLNode<T>
 
     }
 
-    void updateHeight(AVLNode<T> node) {
+    public void updateHeight(AVLNode<T> node) {
 
         int leftHeight = node.getRight().getHeight();
         int rightHeight = node.getLeft().getHeight();
@@ -31,11 +31,10 @@ public class AVLImpl<T extends Comparable<T>> implements Rotatable<T, AVLNode<T>
 
     }
 
-    int height(AVLNode<T> node) {
+    private int height(AVLNode<T> node) {
         return node == null ? -1 : node.getHeight();
     }
-
-    
-
-
+    private int balanceFactor(AVLNode<T> node) {
+        return height(node.getRight()) - height(node.getLeft());
+    }
 }
