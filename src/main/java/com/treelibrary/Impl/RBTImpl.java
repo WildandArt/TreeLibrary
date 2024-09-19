@@ -3,7 +3,6 @@ package com.treelibrary.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.treelibrary.Node;
 import com.treelibrary.RBT;
 import com.treelibrary.RBTNode;
 
@@ -65,7 +64,7 @@ public class RBTImpl<T extends Comparable<T>> extends BSTImpl<T> implements RBT<
     List<T> result = new ArrayList<>();
     inOrderTraversalHelper(this.getRoot(), result);
     return result;
-    
+
 }
 
 private void inOrderTraversalHelper(RBTNode<T> node, List<T> result) {
@@ -77,7 +76,6 @@ private void inOrderTraversalHelper(RBTNode<T> node, List<T> result) {
     inOrderTraversalHelper(node.getRight(), result);
 
 }
-
 
     private void fixRedBlackPropertiesAfterDelete(RBTNode<T> node) {
       // Case 1: Examined node is root, end of recursion
