@@ -16,5 +16,10 @@ Deletion:
 
 - AVL Right Rotation:
  <!-- ![Animation](AVLRightRotationAnimation.gif) -->
-<img src="AVLRightRotationAnimation.gif" width="400" alt="Animation">
+<img src="animations/RightRotation.gif" width="400" alt="Animation">
+
+- AVL Left Rotation:
+
+<img src="animations/LeftRotation.gif" width="400" alt="Animation">
+
 https://www.canva.com/design/DAGRX0z6MZA/Pm49dV4s_hjUDs0RrOehNA/watch?utm_content=DAGRX0z6MZA&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel
